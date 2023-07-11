@@ -3,17 +3,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>research | Jack Umenberger</title>
+<title>Research | Jack Umenberger</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="research" />
+<meta property="og:title" content="Research" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="research on machine learning, robotics, and control." />
-<meta property="og:description" content="research on machine learning, robotics, and control." />
+<meta name="description" content="research on control, optimization, and learning" />
+<meta property="og:description" content="research on control, optimization, and learning" />
 <link rel="canonical" href="http://localhost:4000/research" />
 <meta property="og:url" content="http://localhost:4000/research" />
 <meta property="og:site_name" content="Jack Umenberger" />
 <script type="application/ld+json">
-{"headline":"research","url":"http://localhost:4000/research","description":"research on machine learning, robotics, and control.","@type":"WebPage","@context":"http://schema.org"}</script>
+{"headline":"Research","url":"http://localhost:4000/research","description":"research on control, optimization, and learning","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Jack Umenberger" /></head>
 <body><header class="site-header" role="banner">
@@ -28,7 +28,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/publications">publications</a><a class="page-link" href="/research">research</a><a class="page-link" href="https://www.csail.mit.edu/person/jack-umenberger">contact</a>
+        <div class="trigger"><a class="page-link" href="/publications">Publications</a><a class="page-link" href="/research">Research</a><a class="page-link" href="/join">Join</a><!-- <a class="page-link" href="https://www.csail.mit.edu/person/jack-umenberger">contact</a> -->
         </div>
       </nav></div>
 </header><main class="page-content" aria-label="Content">
@@ -41,18 +41,68 @@
 <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title">research</h1>
+    <h1 class="post-title">Research</h1>
   </header>
 
   <div class="post-content">
-    <p>I’m interested in data-driven modeling and control of dynamical systems.
-At the moment, I’m particularly interested in exploring the connections between adaptive control, 
-<a href="https://en.wikipedia.org/wiki/Dual_control_theory">dual control</a>,
-and reinforcement learning, i.e., carrying out learning and control simultaneously.</p>
+    <p>My interests center around optimization and control of dynamical systems, with a particular focus on data-driven approaches. 
+These days I’m especially interested in:</p>
+<ul>
+  <li>problems blending discrete and continuous decisions,</li>
+  <li>exploring the connections between reinforcement learning, adaptive control, and <a href="https://en.wikipedia.org/wiki/Dual_control_theory">dual control</a>,</li>
+  <li>modeling dynamical systems from data, a.k.a system identification, and building digital twins.</li>
+</ul>
 
-<p>My doctoral research focused on the learning problem (a.k.a. system identification), with an emphasis on convex optimization methods that could guarantee stability of the learned models.</p>
+<p>Regarding applications, I’m currently actively working on:</p>
+<ul>
+  <li>energy systems, especially battery management systems with <a href="https://eatron.com/">Eatron Technologies</a>,</li>
+  <li>robotic motion planning, especially for robotic manipulators with <a href="https://www.dexai.com/">Dexai Robotics</a>.</li>
+</ul>
 
-<p>Prior to this I worked on a few robotics applications, including motion planning for dynamic walking bipedal robots, and guidance, navigation and control of autonomous paramotors (motorized parafoils).</p>
+<p>Some representative projects are highlighted below.</p>
+
+<h2 id="shortest-paths-in-graphs-of-convex-sets">Shortest paths in graphs of convex sets</h2>
+<p><img style="float:  right" src="bimanual.gif" width="300px" />
+Many optimization and control problems blend discrete decisions (“go left or right around the obstace?”, “turn on/off a power generator?”) and continuous decisions (“how much torque to apply?”, “how much current to draw?”).
+Such problems are fun to think about from an optimization perspective, because of the explicit combinatorial structure. 
+One recent attempt to blend discrete and continuous decision-making in an “optimization friendly” way is through <a href="https://arxiv.org/abs/2101.11565">graphs of convex sets</a>. 
+So far, we’ve mostly applied the approach to robotic motion planning.
+See <a href="https://www.dropbox.com/home/Public/Motion%20planning%20videos">here</a> for higher-resolution videos (with special thanks to <a href="https://www.linkedin.com/in/mpetersen94/">Mark Petersen</a>).
+If you’d like to play with graphs of convex sets, there’s a nice implementation in the software package <a href="https://drake.mit.edu/doxygen_cxx/classdrake_1_1geometry_1_1optimization_1_1_graph_of_convex_sets.html">Drake</a>.</p>
+
+<h2 id="convergence-of-direct-policy-search">Convergence of direct policy search</h2>
+
+<p>A popular approach to reinforcement learning is direct policy search, which involves minimizing cost by optimizing <em>directly</em> over the parameters of the policy (controller). 
+In most control problems, such an optimization problem is nonconvex. 
+Given this nonconvexity, should we expect local search to find good policies, or get stuck in bad local minima?</p>
+
+<p><img style="float:  right" src="no_stationary_points.png" alt="drawing" width="500px" />
+A number of nonconvex control problems are convex under a change of variables.
+The existence of such a “convex reformulation” implies that, even though the problem is nonconvex, it does not have any suboptimal local minima. A visual proof is given above: the main idea is that any stationary points in the 
+<span style="color:blue">nonconvex function</span> must also appear in the 
+<span style="color:orangered;">convex function</span>. 
+One can prove that gradient descent over control paraemeters will converge to globally optimal solutions, despite nonconvexity.
+If you’re interested, you can read more <a href="https://arxiv.org/abs/2202.11659">here</a>.</p>
+
+<h2 id="system-identification-with-stability-guarantees">System identification with stability guarantees</h2>
+<p><img style="float:  right" src="steam.gif" width="450px" />
+Predicting the long-term behavior of a dynamical system from past observations is a ubiquitous, but challenging, task in science and engineering. 
+If the system is “chaotic”, this is practically impossible. 
+In contrast, systems that “eventually forget” about past inputs - that is, are <em>stable</em> in some sense - can be easier to predict. 
+To make good predictions for stable systems, we should ensure that the models we learn are also stable. You can see a particularly dramatic illustration of the benefits of enforcing stability in the animation above, where the unstable learned model on the left eventually “blows up”. 
+This particular example in from <a href="pdfs/lree18.pdf">this paper</a>. If you’re interested, you can find other approaches that I’ve helped develop <a href="https://arxiv.org/abs/1803.01066">here</a> and <a href="pdfs/stablemli18.pdf">here</a>.</p>
+
+<!-- I'm interested in data-driven modeling and control of dynamical systems.
+At the moment, I'm particularly interested in exploring the connections between adaptive control, 
+[dual control](https://en.wikipedia.org/wiki/Dual_control_theory),
+and reinforcement learning, i.e., carrying out learning and control simultaneously.
+
+My doctoral research focused on the learning problem (a.k.a. system identification), with an emphasis on convex optimization methods that could guarantee stability of the learned models.
+
+Prior to this I worked on a few robotics applications, including motion planning for dynamic walking bipedal robots, and guidance, navigation and control of autonomous paramotors (motorized parafoils). -->
+
+<!-- My doctoral research focused on the learning problem (a.k.a. system identification), with an emphasis on convex optimization methods that could guarantee stability of the learned models.
+Prior to this I worked on a few robotics applications, including motion planning for dynamic walking bipedal robots, and guidance, navigation and control of autonomous paramotors (motorized parafoils). -->
 
 
   </div>
@@ -72,7 +122,7 @@ and reinforcement learning, i.e., carrying out learning and control simultaneous
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li class="p-name">
-            </li><li><a class="u-email" href="mailto:umnbrgr AT mit DOT edu">umnbrgr AT mit DOT edu</a></li><!-- built with <a href="https://jekyllrb.com/">jekyll</a> -->
+            </li><li><a class="u-email" href="mailto:jack.umenberger AT eng.ox.ac.uk">jack.umenberger AT eng.ox.ac.uk</a></li><!-- built with <a href="https://jekyllrb.com/">jekyll</a> -->
         </ul>
 
       </div>
@@ -81,7 +131,7 @@ and reinforcement learning, i.e., carrying out learning and control simultaneous
 </div>
 
       <div class="footer-col footer-col-3">
-        <p>research on machine learning, robotics, and control.</p>
+        <p>research on control, optimization, and learning</p>
       </div>
     </div>
 
