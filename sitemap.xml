@@ -74,4 +74,8 @@
 <loc>http://localhost:4000/pdfs/thermo19.pdf</loc>
 <lastmod>2019-09-03T07:38:15+01:00</lastmod>
 </url>
+<url>
+<loc>http://localhost:4000/postdoc/task.pdf</loc>
+<lastmod>2026-04-21T15:56:57+01:00</lastmod>
+</url>
 </urlset>
